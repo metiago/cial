@@ -1,0 +1,34 @@
+version: '3.6'
+
+services:
+  adminer_container:
+    image: adminer:latest
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres_db
+      ADMINER_DESIGN: dracula
+    ports:
+      - 8080:8080
+
+  postgres_db:
+    image: postgres:13-alpine
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=12345678
+      - POSTGRES_USER=postgres
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data/
+
+ api:
+   build:
+     context: .
+     dockerfile: Dockerfile
+   ports:
+     - 8000:8000
+   depends_on:
+     - postgres_db
+   environment:
+     - FLASK_CONFIG=testing
+
+volumes:
+  postgres_data:

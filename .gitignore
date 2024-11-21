@@ -1,0 +1,70 @@
+/venv
+/postgres_data
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.pdb
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv/
+.env/
+
+# Flask specific
+instance/
+.webassets-cache
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Logs
+*.log
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+.cache
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Pytest
+.cache/
+pytestdebug.log
+
+# MyPy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Other
+*.DS_Store
+*.env
+*.local
