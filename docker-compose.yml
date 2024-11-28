@@ -1,4 +1,4 @@
-version: '3.6'
+version: '3.8'
 
 services:
   adminer_container:
@@ -18,6 +18,11 @@ services:
       - POSTGRES_USER=postgres
     volumes:
       - ./postgres_data:/var/lib/postgresql/data/
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   api:
     build:
@@ -26,7 +31,8 @@ services:
     ports:
       - 8000:8000
     depends_on:
-      - postgres_db
+      postgres_db:
+        condition: service_healthy
     environment:
       - FLASK_CONFIG=default
       - FLASK_APP=run.py
@@ -36,7 +42,8 @@ services:
       context: .
       dockerfile: Dockerfile
     depends_on:
-      - postgres_db
+      postgres_db:
+        condition: service_healthy
     environment:
       - FLASK_CONFIG=default
       - FLASK_APP=run.py
