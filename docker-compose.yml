@@ -19,16 +19,29 @@ services:
     volumes:
       - ./postgres_data:/var/lib/postgresql/data/
 
- api:
-   build:
-     context: .
-     dockerfile: Dockerfile
-   ports:
-     - 8000:8000
-   depends_on:
-     - postgres_db
-   environment:
-     - FLASK_CONFIG=testing
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    depends_on:
+      - postgres_db
+    environment:
+      - FLASK_CONFIG=default
+      - FLASK_APP=run.py
+
+  migrate:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres_db
+    environment:
+      - FLASK_CONFIG=default
+      - FLASK_APP=run.py
+    command: >
+      sh -c "flask db init && flask db migrate && flask db upgrade"
 
 volumes:
   postgres_data:

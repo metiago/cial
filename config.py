@@ -29,6 +29,13 @@ class TestingConfig(Config):
     SQLALCHEMY_DATABASE_URI = db_uri + database_name
 
 
+class DefaultConfig(Config):
+    TESTING = True
+    db_uri = 'postgresql://postgres:12345678@postgres_db/'
+    database_name = 'postgres'
+    SQLALCHEMY_DATABASE_URI = db_uri + database_name
+
+
 class ProductionConfig(Config):
     pass
 
@@ -38,5 +45,5 @@ config = {
     'testing': TestingConfig,
     'production': ProductionConfig,
 
-    'default': DevelopmentConfig
+    'default': DefaultConfig
 }
